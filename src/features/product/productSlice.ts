@@ -1,8 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import productService from "./productService";
+import IProduct from "../../interfaces/ProductInterface";
 
-const initialState = {
-  product: [],
+interface InitialStateInterface {
+  product: IProduct;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string;
+}
+
+const initialState: InitialStateInterface = {
+  product: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -15,11 +25,11 @@ export const getProduct = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await productService.getProduct();
-    } catch (error: any) {
+    } catch (e) {
+      const error = e as AxiosError;
+
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.response && error.response.data) ||
         error.message ||
         error.toString();
 
@@ -34,11 +44,11 @@ export const updateProduct = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await productService.updateProduct();
-    } catch (error: any) {
+    } catch (e) {
+      const error = e as AxiosError;
+
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.response && error.response.data) ||
         error.message ||
         error.toString();
 
@@ -51,18 +61,23 @@ export const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    reset: (_state) => initialState,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getProduct.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getProduct.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.product = action.payload;
-      })
+      .addCase(
+        getProduct.fulfilled,
+        (state, action: PayloadAction<IProduct>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.product = action.payload;
+        }
+      )
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .addCase(getProduct.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isError = true;
@@ -71,11 +86,15 @@ export const productSlice = createSlice({
       .addCase(updateProduct.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateProduct.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.product = action.payload;
-      })
+      .addCase(
+        updateProduct.fulfilled,
+        (state, action: PayloadAction<IProduct>) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.product = action.payload;
+        }
+      )
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .addCase(updateProduct.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.isError = true;

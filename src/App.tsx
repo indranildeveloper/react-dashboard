@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import EditProduct from "./pages/EditProduct";
@@ -13,6 +15,7 @@ const App = () => {
         <Route path="/product" element={<Product />} />
         <Route path="/product/edit" element={<EditProduct />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 };

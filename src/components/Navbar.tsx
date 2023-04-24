@@ -1,8 +1,6 @@
-import { Fragment } from "react";
-import { FaSearch, FaArrowDown } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { HiChevronDown, HiOutlineBell } from "react-icons/hi";
-import { Menu, Transition } from "@headlessui/react";
 
 const Navbar = () => {
   return (
