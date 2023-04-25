@@ -113,12 +113,14 @@ const EditProduct = () => {
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      <div className="container mx-auto">
+    <div className="bg-background min-h-screen max-w-full">
+      <div className="container mx-auto px-4">
         <div className="flex pt-6 gap-10">
-          <Sidebar />
+          <div className="hidden md:block">
+            <Sidebar />
+          </div>
 
-          <div className="right flex-1">
+          <div className="right flex-1 w-full">
             <div className="header mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <h2 className="font-semibold">Offer Title</h2>
@@ -132,8 +134,8 @@ const EditProduct = () => {
 
             <div className="product">
               <div className="border rounded-md bg-white">
-                <div className="flex">
-                  <div className="w-[60%] border-r-2 relative">
+                <div className="flex flex-col md:flex-row">
+                  <div className="md:w-[60%] border-b-2 md:border-b-0 md:border-r-2 relative">
                     <ProductImage />
                     <div className="p-4">
                       <div>

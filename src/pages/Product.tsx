@@ -40,13 +40,15 @@ const Product = () => {
   }
 
   return (
-    <div className="bg-background">
-      <div className="container mx-auto">
-        <div className="flex pt-6 gap-10">
-          <Sidebar />
+    <div className="bg-background max-w-full">
+      <div className="container mx-auto w-full px-4">
+        <div className="flex pt-6 gap-0 md:gap-10">
+          <div className="hidden md:block">
+            <Sidebar />
+          </div>
 
-          <div className="right">
-            <div className="header mb-4 flex items-center justify-between">
+          <div className="right max-w-full">
+            <div className="header mb-4 flex flex-col md:flex-row gap-2 flex-wrap md:justify-between md:items-center">
               <div className="flex items-center gap-2 text-gray-500">
                 <BiHomeAlt2 /> <HiChevronRight className="text-xl" />{" "}
                 <span>Offers</span> <HiChevronRight className="text-xl" />{" "}
@@ -58,10 +60,10 @@ const Product = () => {
                 </button>
               </Link>
             </div>
-            <div className="product">
-              <div className="border rounded-md bg-white">
-                <div className="flex">
-                  <div className="w-[60%] border-r-2 relative">
+            <div className="product w-full">
+              <div className="border rounded-md bg-white w-full">
+                <div className="flex flex-col md:flex-row">
+                  <div className="md:w-[60%] border-b-2 md:border-b-0 md:border-r-2 relative">
                     <ProductImage />
                     <div className="p-6">
                       <h2 className="font-semibold">{name}</h2>

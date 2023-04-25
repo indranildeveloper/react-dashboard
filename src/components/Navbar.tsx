@@ -10,7 +10,7 @@ const Navbar = () => {
           <img src="/logo.svg" alt="logo" className="h-6" />
         </div>
 
-        <div className="search relative">
+        <div className="search hidden md:relative">
           <input
             type="text"
             className="border py-1 px-3 w-[500px] rounded-md"
@@ -19,7 +19,7 @@ const Navbar = () => {
           <FaSearch className="text-black absolute top-1/2 -translate-y-1/2 right-2" />
         </div>
 
-        <div className="icons">
+        <div className="icons hidden md:block">
           <ul className="flex items-center gap-4">
             <li>
               <BsChatDots />

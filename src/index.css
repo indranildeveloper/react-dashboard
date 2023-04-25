@@ -6,3 +6,7 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+
+* {
+  /* border: 1px solid salmon; */
+}

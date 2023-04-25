@@ -11,7 +11,7 @@ const OfferDetails = () => {
   return (
     <div className="border mt-6 mb-6 p-6 bg-white rounded-md">
       <h2 className="font-semibold mb-2">Offer Details</h2>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
         {/* -Technologies- */}
         <div className="text-gray-500">
           <p className="flex items-center">
