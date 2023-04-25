@@ -70,7 +70,6 @@ const Product = () => {
                       </ReactMarkdown>
                     </div>
                   </div>
-
                   <CompanyInfo />
                 </div>
               </div>
@@ -80,7 +79,6 @@ const Product = () => {
               {/* Offer Details */}
               <OfferDetails />
             </div>
-            S
           </div>
         </div>
       </div>

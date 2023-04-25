@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="bg-primary text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="logo">
-          <img src="./logo.svg" alt="logo" className="h-6" />
+          <img src="/logo.svg" alt="logo" className="h-6" />
         </div>
 
         <div className="search relative">

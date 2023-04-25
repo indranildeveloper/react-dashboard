@@ -1,6 +1,6 @@
 import { FC } from "react";
+import { useLocation } from "react-router";
 import { CiLocationOn } from "react-icons/ci";
-
 import UserInfo from "./UserInfo";
 import { useAppSelector } from "../hooks/useAppDispatch";
 import AddressMap from "./AddressMap";
@@ -8,8 +8,9 @@ import Loading from "./Loading";
 
 const CompanyInfo: FC = () => {
   const { product, isLoading } = useAppSelector((state) => state.product);
-
   const { company } = product;
+
+  const location = useLocation();
 
   if (isLoading) {
     return <Loading />;
@@ -38,7 +39,7 @@ const CompanyInfo: FC = () => {
           </div>
         </div>
 
-        {!isLoading && <AddressMap />}
+        {location.pathname !== "/product/edit" && !isLoading && <AddressMap />}
       </div>
     </div>
   );
