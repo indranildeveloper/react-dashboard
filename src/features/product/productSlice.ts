@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import productService from "./productService";
 import IProduct from "../../interfaces/ProductInterface";
+import IUpdateProduct from "../../interfaces/UpdateProduct";
 
 interface InitialStateInterface {
   product: IProduct;
@@ -41,9 +42,9 @@ export const getProduct = createAsyncThunk(
 // Update Product
 export const updateProduct = createAsyncThunk(
   "product/updateProduct",
-  async (_, thunkAPI) => {
+  async (product: IUpdateProduct, thunkAPI) => {
     try {
-      return await productService.updateProduct();
+      return await productService.updateProduct(product);
     } catch (e) {
       const error = e as AxiosError;
 

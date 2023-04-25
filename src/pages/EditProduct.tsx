@@ -31,16 +31,11 @@ import Sidebar from "../components/Sidebar";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
 import { getProduct, updateProduct } from "../features/product/productSlice";
 import Loading from "../components/Loading";
+import IUpdateProduct from "../interfaces/UpdateProduct";
 
 const EditProduct = () => {
   const { product, isLoading } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
-
-  interface IFormData {
-    productName: string;
-    productDescription: string;
-    productVideo: string;
-  }
 
   useEffect(() => {
     dispatch(getProduct());
@@ -48,7 +43,7 @@ const EditProduct = () => {
 
   const { name, description, video } = product;
 
-  const [formData, setFormData] = useState<IFormData>({
+  const [formData, setFormData] = useState<IUpdateProduct>({
     productName: name || "",
     productDescription: description || "",
     productVideo: video || "",
@@ -108,7 +103,7 @@ const EditProduct = () => {
   };
 
   const handleSubmit = () => {
-    // dispatch(updateProduct());
+    dispatch(updateProduct(formData));
 
     console.log(formData);
   };
