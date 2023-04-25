@@ -8,6 +8,7 @@ import { BiHomeAlt2 } from "react-icons/bi";
 import { HiChevronRight } from "react-icons/hi";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
 import { getProduct } from "../features/product/productSlice";
+import { getConfig } from "../features/config/configSlice";
 import ProductImage from "../components/ProductImage";
 import CompanyInfo from "../components/CompanyInfo";
 import ProductVideo from "../components/ProductVideo";
@@ -19,13 +20,18 @@ const Product = () => {
   const { product, isError, isLoading, message } = useAppSelector(
     (state) => state.product
   );
+  const { config } = useAppSelector((state) => state.config);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getProduct());
+    dispatch(getConfig());
   }, []);
 
   const { name, description } = product;
+
+  const { mainColor, hasUserSection } = config;
 
   const sanitizedDescription = DOMPurify.sanitize(description || "", {
     ALLOWED_TAGS: ["p"],
@@ -62,8 +68,12 @@ const Product = () => {
             </div>
             <div className="product w-full">
               <div className="border rounded-md bg-white w-full">
-                <div className="flex flex-col md:flex-row">
-                  <div className="md:w-[60%] border-b-2 md:border-b-0 md:border-r-2 relative">
+                <div className="flex flex-col md:flex-row w-full">
+                  <div
+                    className={`${
+                      !hasUserSection ? "md:w-full border-none" : "md:w-[60%]"
+                    }  border-b-2 md:border-b-0 md:border-r-2 relative`}
+                  >
                     <ProductImage />
                     <div className="p-6">
                       <h2 className="font-semibold">{name}</h2>
@@ -72,7 +82,7 @@ const Product = () => {
                       </ReactMarkdown>
                     </div>
                   </div>
-                  <CompanyInfo />
+                  {hasUserSection && <CompanyInfo />}
                 </div>
               </div>
 

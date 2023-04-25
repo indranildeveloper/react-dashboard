@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import DOMPurify from "dompurify";
 import { FaCheck } from "react-icons/fa";
 
@@ -30,18 +31,26 @@ import ProductImage from "../components/ProductImage";
 import Sidebar from "../components/Sidebar";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
 import { getProduct, updateProduct } from "../features/product/productSlice";
+import { getConfig } from "../features/config/configSlice";
 import Loading from "../components/Loading";
 import IUpdateProduct from "../interfaces/UpdateProduct";
 
 const EditProduct = () => {
-  const { product, isLoading } = useAppSelector((state) => state.product);
+  const { product, isLoading, isError, message } = useAppSelector(
+    (state) => state.product
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getProduct());
+    dispatch(getConfig());
   }, []);
 
   const { name, description, video } = product;
+
+  const { config } = useAppSelector((state) => state.config);
+
+  const { mainColor, hasUserSection } = config;
 
   const [formData, setFormData] = useState<IUpdateProduct>({
     productName: name || "",
@@ -108,6 +117,10 @@ const EditProduct = () => {
     console.log(formData);
   };
 
+  if (isError) {
+    toast.error(message);
+  }
+
   if (isLoading) {
     return <Loading />;
   }
@@ -126,7 +139,10 @@ const EditProduct = () => {
                 <h2 className="font-semibold">Offer Title</h2>
               </div>
               <Link to="/product">
-                <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-purple-950">
+                <button
+                  type="button"
+                  className="bg-primary text-white px-4 py-2 rounded-md hover:bg-purple-950"
+                >
                   View Offer
                 </button>
               </Link>
@@ -135,7 +151,11 @@ const EditProduct = () => {
             <div className="product">
               <div className="border rounded-md bg-white">
                 <div className="flex flex-col md:flex-row">
-                  <div className="md:w-[60%] border-b-2 md:border-b-0 md:border-r-2 relative">
+                  <div
+                    className={`${
+                      !hasUserSection ? "md:w-full border-none" : "md:w-[60%]"
+                    }  border-b-2 md:border-b-0 md:border-r-2 relative`}
+                  >
                     <ProductImage />
                     <div className="p-4">
                       <div>
@@ -181,7 +201,7 @@ const EditProduct = () => {
                             <button type="button">Cancel</button>
                             <button
                               type="button"
-                              className="flex items-center gap-1 bg-primary text-white px-4 py-2 rounded-md hover:bg-purple-950"
+                              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-purple-950 flex items-center gap-2"
                               onClick={handleSubmit}
                             >
                               <FaCheck /> Save
@@ -192,7 +212,7 @@ const EditProduct = () => {
                     </div>
                   </div>
 
-                  <CompanyInfo />
+                  {hasUserSection && <CompanyInfo />}
                 </div>
               </div>
 
